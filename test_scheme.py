@@ -78,5 +78,5 @@ def cos(xy):
 
 #test 2D
 #test([solve_euler_explicit, Runge_Kutta_2, euler_implicite], cos_ex,cos, array([1,0],dtype = float64), 0)
-#printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite],cos_ex, cos, array([[cos_ex(-6.0)],[-ma.sin(-6.0)]]),-6.0,0.01,12)
-#printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite],exp_ex, exp, array([[1.0]]),0.0,0.01,12)
+printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite],cos_ex, cos, array([[cos_ex(-6.0)],[-ma.sin(-6.0)]]),-6.0,0.01,12)
+printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite],exp_ex, exp, array([[1.0]]),0.0,0.01,12)
