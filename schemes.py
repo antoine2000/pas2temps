@@ -6,16 +6,17 @@ def solve_euler_explicit(f, x0, t0, dt, t_tot=2):
 
 	''' Cette fonction renvoie la solution à l'équation différentielle dx/dt = f(x) 
 	avec la méthode d'Euler explicite, pour une durée de 1 seconde'''
+	
 	#print(f, x0, t0, t_tot, dt)
 	N = int(ma.floor(t_tot/dt))
 	t,x = t0,1*x0    # Donne le temps actuel et la position
 	T = [t]  # Liste de temps
-	X = [1*x]  # Liste de positions
+	X = array(x)  # Liste de positions
 	for _ in range(0,N):
 		t += dt    # Nouveau temps
 		x += dt*f(x)  # Nouvelle position
 		T.append(t)
-		X.append(1*x)
+		X = concatenate((X,x),axis = 1)
 
 	return T, X
 
@@ -23,7 +24,7 @@ def Runge_Kutta_2(f, x0, t0, dt, t_tot = 2):
 
 	N = int(ma.floor(t_tot/dt))  # Number of iterations
 	t,x = t0,1*x0				# Current time & current position
-	X = [1*x]			# Liste de positions
+	X = array(x)			# Liste de positions
 	T = [t]				# Liste de temps
 
 	for k in range(N):
@@ -32,14 +33,14 @@ def Runge_Kutta_2(f, x0, t0, dt, t_tot = 2):
 		x += dt*f(middle_pos)
 
 		T.append(t)
-		X.append(1*x)
+		X = concatenate((X,x),axis = 1)
 
 	return T,X
 	
 def euler_implicite(f, x0, t0, dt, t_tot = 2):
 	N = int(ma.floor(t_tot/dt))  # Number of iterations
 	t,x = t0,1*x0				# Current time & current position
-	X = [1*x0]			# Liste de positions
+	X = array(x)			# Liste de positions
 	T = [t]				# Liste de temps
 
 	def phi(approx):
@@ -48,9 +49,8 @@ def euler_implicite(f, x0, t0, dt, t_tot = 2):
 		t += dt
 		approx_pos = phi(x)
 		x = next_step(approx_pos, phi)
-
 		T.append(t)
-		X.append(1*x)
+		X = concatenate((X,x),axis = 1)
 
 	return T,X
 
