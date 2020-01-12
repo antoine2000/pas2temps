@@ -21,25 +21,27 @@ def erreur_max(solveur, solution, f, x0, t0, dt, t_tot=2):
 	T,approx = solveur(f, x0, t0, dt, t_tot)
 	err_max = 0
 	for t in T:
-		err = linalg.norm(solution(t) - approx[int(t/dt)][0])
+		err = linalg.norm(solution(t) - approx[0][int(t/dt)])
+		err = min(err,10---16)
 		if err > err_max :
 			err_max = err
 	return err_max
 
-def test(solveurs, solution, f, x0 = array([1]), t0 = 0, t_tot = 2):
+def test(solveurs, solution, f, x0 = array([[1]]), t0 = 0, t_tot = 2):
 	plt.figure()
 	plt.xlabel("-log(pas de temps)")
 	plt.ylim([0,0.4])
 	plt.ylabel("erreur maximale")
 	plt.title("Erreur maximale en fonction du pas de temps choisi pour différents solveurs et la fonction " + f.__name__ + " sur " + str(t_tot) + " secondes")	
 	for solveur in solveurs:
+		print(solveur)
 		dt = 1
 		Liste_err = []
 		Liste_t = []
 		while dt > 10**-4 :
 			Liste_err.append(erreur_max(solveur, solution, f, x0, t0, dt, t_tot))
 			Liste_t.append(-ma.log10(dt))
-			dt /= 1.01
+			dt /= 1.5
 		Lissage(Liste_err)
 		plt.plot(Liste_t, Liste_err, label = solveur.__name__)
 	plt.legend(loc = 0)
@@ -77,6 +79,6 @@ def cos(xy):
 #test([solve_euler_explicit, Runge_Kutta_2, euler_implicite], carre_ex,carre, 1, 0)
 
 #test 2D
-#test([solve_euler_explicit, Runge_Kutta_2, euler_implicite], cos_ex,cos, array([1,0],dtype = float64), 0)
-printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite],cos_ex, cos, array([[cos_ex(-6.0)],[-ma.sin(-6.0)]]),-6.0,0.01,12)
-printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite],exp_ex, exp, array([[1.0]]),0.0,0.01,12)
+test([solve_euler_explicit, Runge_Kutta_2,Runge_Kutta_4, euler_implicite], cos_ex,cos, array([[1],[0]],dtype = float64), 0)
+#printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite, Runge_Kutta_4],cos_ex, cos, array([[cos_ex(-6.0)],[-ma.sin(-6.0)]]),-6.0,0.01,12)
+#printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite, Runge_Kutta_4],exp_ex, exp, array([[1.0]]),0.0,0.01,12)
