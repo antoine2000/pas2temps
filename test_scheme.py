@@ -12,6 +12,7 @@ def printf(solveurs, true_f, f, x0, t0, dt, t_tot=2):
 	for solveur in solveurs:
 		print(solveur.__name__)
 		T, X = solveur(f,x0,t0,dt,t_tot)
+		#print(T)
 		F = [true_f(t) for t in T]
 		plt.plot(T, X[0], label = solveur.__name__)
 	plt.plot(T, F, label = 'true')
@@ -100,7 +101,7 @@ def test_ivp(f, f_ex, x0, t0, dt, t_tot):
 
 #test 2D
 #test([solve_ivp_euler_explicit_variable_step, solve_euler_explicit, euler_implicite, Runge_Kutta_2,Runge_Kutta_4], exp_ex,exp, array([1.0]), 0,10)
-printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],cos_ex, cos, array([cos_ex(-6),-ma.sin(6.0)]),-6.0,0.0001,12)
+printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],cos_ex, cos, array([cos_ex(-6.0),-ma.sin(-6.0)]),-6.0,0.001,12)
 #printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],exp_ex, exp, array([1.0]),0,0.1,10)
 #printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite, Runge_Kutta_4,solve_ivp_euler_explicit_variable_step],carre_ex, carre, array([1.0]),0.0,0.1,12)
 
