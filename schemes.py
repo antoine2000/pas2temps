@@ -65,6 +65,7 @@ def euler_implicite(f, x0, t0, dt, t_tot = 2):
 	def phi(approx):
 		return x + dt*f(approx) 
 	for _ in range(N):
+		#print(_)
 		t += dt
 		approx_pos = phi(x)
 		x = next_step(approx_pos, phi)
@@ -74,7 +75,7 @@ def euler_implicite(f, x0, t0, dt, t_tot = 2):
 	return T,X.T
 
 def next_step(approx_pos,phi):
-	for _ in range(100):
+	for _ in range(10):
 		approx_pos = phi(1*approx_pos)
 	temp = phi(approx_pos)
 	while linalg.norm(temp-approx_pos)/linalg.norm(approx_pos) > 0.1 :
@@ -84,7 +85,7 @@ def next_step(approx_pos,phi):
 
 def solve_ivp_euler_explicit_variable_step(f, x0, t0, dtmax, t_f, dtmin = 1e-16, atol = 1e-6):
 	dt = dtmax/10; # initial integration step
-	ts, xs = [t0], [x0]  # storage variables
+	ts, xs = [t0], [1*x0]  # storage variables
 	t = t0
 	ti = 0  # internal time keeping track of time since latest storage point : must remain below dtmax
 	x = x0

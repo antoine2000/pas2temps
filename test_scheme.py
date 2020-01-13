@@ -10,7 +10,7 @@ def printf(solveurs, true_f, f, x0, t0, dt, t_tot=2):
 	plt.ylabel("Solution")
 	plt.title(f.__name__ + " simulée sur " + str(t_tot) + " secondes avec un pas de temps de " + str(dt))	
 	for solveur in solveurs:
-		# print(solveur.__name__)
+		print(solveur.__name__)
 		T, X = solveur(f,x0,t0,dt,t_tot)
 		F = [true_f(t) for t in T]
 		plt.plot(T, X[0], label = solveur.__name__)
@@ -32,7 +32,7 @@ def erreur_max(solveur, solution, f, x0, t0, dt, t_tot=2):
 def test(solveurs, solution, f, x0 = array([1]), t0 = 0, t_tot = 2):
 	plt.figure()
 	plt.xlabel("-log(pas de temps)")
-	plt.ylim([0,0.4])
+	#plt.ylim([0,1])
 	plt.ylabel("erreur maximale")
 	plt.title("Erreur maximale en fonction du pas de temps choisi pour différents solveurs et la fonction " + f.__name__ + " sur " + str(t_tot) + " secondes")	
 	for solveur in solveurs:
@@ -99,9 +99,10 @@ def test_ivp(f, f_ex, x0, t0, dt, t_tot):
 #test([solve_euler_explicit, Runge_Kutta_2, euler_implicite], carre_ex,carre, 1, 0)
 
 #test 2D
-#test([solve_ivp_euler_explicit_variable_step, solve_euler_explicit, Runge_Kutta_2,Runge_Kutta_4], carre_ex,carre, array([1.0]), 1,10)
-#printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],carre_ex, carre, array([1.0]),1,0.1,10)
+#test([solve_ivp_euler_explicit_variable_step, solve_euler_explicit, euler_implicite, Runge_Kutta_2,Runge_Kutta_4], exp_ex,exp, array([1.0]), 0,10)
+printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],cos_ex, cos, array([cos_ex(-6),-ma.sin(6.0)]),-6.0,0.0001,12)
+#printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],exp_ex, exp, array([1.0]),0,0.1,10)
 #printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite, Runge_Kutta_4,solve_ivp_euler_explicit_variable_step],carre_ex, carre, array([1.0]),0.0,0.1,12)
 
 #test IVP
-test_ivp(carre,carre_ex,array([1]),0.0,0.01,40)
+#test_ivp(carre,carre_ex,array([1]),0.0,0.01,40)
