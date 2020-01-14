@@ -105,7 +105,7 @@ def solve_ivp_euler_explicit_variable_step(f, x0, t0, dtmax, t_f, dtmin = 1e-16,
 		ts = vstack([ts,t_next])
 		xs = vstack([xs,x_next])
 		t, ti, x = t_next, ti_next, x_next
-		return (ts, xs.T)
+	return (ts, xs.T)
 		
 def solve_ivp_euler_explicit_variable_step_test(f, x0, t0, dtmax, t_f, dtmin = 1e-16, atol = 1e-6):
 	dt = dtmax/10; # initial integration step
