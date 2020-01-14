@@ -110,6 +110,8 @@ def solve_ivp_euler_explicit_variable_step(f, x0, t0, dtmax, t_f, dtmin = 1e-16,
 def solve_ivp_euler_explicit_variable_step_test(f, x0, t0, dtmax, t_f, dtmin = 1e-16, atol = 1e-6):
 	dt = dtmax/10; # initial integration step
 	dts, ts, xs = [dt], [t0], [x0]  # storage variables
+	N = (t_f-t0)/dtmax
+	atol = min(1e-6,1/N)
 	t = t0
 	ti = 0  # internal time keeping track of time since latest storage point : must remain below dtmax
 	x = x0

@@ -80,9 +80,14 @@ def cos(xy):
 def test_ivp(f, f_ex, x0, t0, dt, t_tot):
 	dts,ts,xs = solve_ivp_euler_explicit_variable_step_test(f,x0,t0,dt,t_tot)
 	F = [f_ex(t) for t in ts]
+	Tmin = [-log10(10**(-16)) for _ in range(len(ts))]
+	Tmax = [-log10(dt) for _ in range(len(ts))]
 	plt.figure()
 	plt.subplot(2,1,1)
-	plt.plot(ts,dts)
+	plt.plot(ts,Tmax,label="-log(t_max)")
+	plt.plot(ts,Tmin,label="-log(tmin)")
+	plt.plot(ts,-log10(dts),label = "-log(temps choisi)")
+	plt.legend(loc=0)
 	plt.xlabel("temps")
 	plt.ylabel("pas de temps choisi")
 	plt.subplot(2,1,2)
@@ -100,10 +105,10 @@ def test_ivp(f, f_ex, x0, t0, dt, t_tot):
 #test([solve_euler_explicit, Runge_Kutta_2, euler_implicite], carre_ex,carre, 1, 0)
 
 #test 2D
-#test([solve_ivp_euler_explicit_variable_step, solve_euler_explicit, euler_implicite, Runge_Kutta_2,Runge_Kutta_4], exp_ex,exp, array([1.0]), 0,10)
-printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],cos_ex, cos, array([cos_ex(-6.0),-ma.sin(-6.0)]),-6.0,0.001,12)
+# test([solve_ivp_euler_explicit_variable_step, solve_euler_explicit, euler_implicite, Runge_Kutta_2,Runge_Kutta_4], exp_ex,exp, array([1.0]), 0,10)
+#printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],cos_ex, cos, array([cos_ex(-6.0),-ma.sin(-6.0)]),-6.0,0.001,12)
 #printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],exp_ex, exp, array([1.0]),0,0.1,10)
 #printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite, Runge_Kutta_4,solve_ivp_euler_explicit_variable_step],carre_ex, carre, array([1.0]),0.0,0.1,12)
 
 #test IVP
-#test_ivp(carre,carre_ex,array([1]),0.0,0.01,40)
+test_ivp(exp,exp_ex,array([1]),-0.0,0.05,20)
