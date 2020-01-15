@@ -52,8 +52,8 @@ def test(solveurs, solution, f, x0 = array([1]), t0 = 0, t_tot = 2):
 
 def Lissage(L):
 	N = len(L)
-	for k in range(30,N):
-		L[k] = min(L[k-30:k+1])
+	for k in range(0,N-10):
+		L[k] = sum((L[k:k+10]))/10
 ''' Les fonctions exactes sont doublées de la mention ex'''
 
 def exp(x):
@@ -105,10 +105,11 @@ def test_ivp(f, f_ex, x0, t0, dt, t_tot):
 #test([solve_euler_explicit, Runge_Kutta_2, euler_implicite], carre_ex,carre, 1, 0)
 
 #test 2D
-# test([solve_ivp_euler_explicit_variable_step, solve_euler_explicit, euler_implicite, Runge_Kutta_2,Runge_Kutta_4], exp_ex,exp, array([1.0]), 0,10)
-#printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],cos_ex, cos, array([cos_ex(-6.0),-ma.sin(-6.0)]),-6.0,0.001,12)
+test([solve_ivp_euler_explicit_variable_step, solve_euler_explicit, euler_implicite, Runge_Kutta_2,Runge_Kutta_4], carre_ex,carre, array([1.0]), 1.0,10)
+test([solve_ivp_euler_explicit_variable_step, solve_euler_explicit, euler_implicite, Runge_Kutta_2,Runge_Kutta_4], cos_ex,cos, array([cos_ex(-6),-ma.sin(-6.0)]), -6.0,10)
+#○printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],exp_ex, exp, array([1.0]),0.0,0.1,10)
 #printf([solve_ivp_euler_explicit_variable_step,solve_euler_explicit,euler_implicite,Runge_Kutta_2, Runge_Kutta_4],exp_ex, exp, array([1.0]),0,0.1,10)
 #printf([solve_euler_explicit,Runge_Kutta_2,euler_implicite, Runge_Kutta_4,solve_ivp_euler_explicit_variable_step],carre_ex, carre, array([1.0]),0.0,0.1,12)
 
 #test IVP
-test_ivp(exp,exp_ex,array([1]),-0.0,0.05,20)
+#test_ivp(exp,exp_ex,array([1]),-0.0,0.05,20)
